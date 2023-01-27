@@ -26,8 +26,9 @@ class PosOrderLinesExtended(models.Model):
     @api.model
     def create(self, values):
 
+        print(values)
         if values.get('uom_id'):
-            values['uom_id'] = values['uom_id']['id']
+            values['uom_id'] = values['uom_id'] if isinstance(values['uom_id'], int) else values['uom_id']['id']
         else:
             values['uom_id'] = None
         res = super(PosOrderLinesExtended, self).create(values)
